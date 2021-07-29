@@ -13,8 +13,14 @@ class BooksApp extends React.Component {
          */
         showSearchPage: false
     }
-
+    componentDidMount() {
+        BooksAPI.getAll()
+            .then(books=>{
+                console.log(books[0i43);
+                })
+    }
     render() {
+
         return (
             <div className="app">
                 {this.state.showSearchPage ? (
@@ -48,7 +54,7 @@ class BooksApp extends React.Component {
                         <div className="list-books-content">
                             <div>
                                 <Bookshelf />
-                                <div className="bookshelf">
+                                {/*<div className="bookshelf">
                                     <h2 className="bookshelf-title">Want to Read</h2>
                                     <div className="bookshelf-books">
                                         <ol className="books-grid">
@@ -178,7 +184,7 @@ class BooksApp extends React.Component {
                                             </li>
                                         </ol>
                                     </div>
-                                </div>
+                                </div>*/}
                             </div>
                         </div>
                         <div className="open-search">
