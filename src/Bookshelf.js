@@ -4,15 +4,35 @@ import Book from './Book';
 
 class Bookshelf extends Component{
     render(){
+        const {categories, books} = this.props
         return (
             <div>
-                <div className="bookshelf">
-                    <h2 className="bookshelf-title">Currently Reading</h2>
-                    <div className="bookshelf-books">
-                        <ol className="books-grid">
-                            <Book />
-                            <Book />
-                            {/*<li>
+                {categories.map(category=>{
+                    return(
+                        <div className="bookshelf">
+                            <h2 className="bookshelf-title">{category}</h2>
+                            <div className="bookshelf-books">
+                                <ol className="books-grid">
+                                    {books.map((book, index)=>{
+                                        if(book.categories){
+                                            if(book.categories[0] === category){
+                                                return(<Book data={book} id={index}/>)
+                                            }
+                                        }
+
+                                    })}
+
+                                </ol>
+                            </div>
+                        </div>
+                    )
+                })}
+
+            </div>
+        );
+    }
+}
+{/*<li>
                                 <div className="book">
                                     <div className="book-top">
                                         <div className="book-cover" style={{
@@ -36,12 +56,4 @@ class Bookshelf extends Component{
                                     <div className="book-authors">Orson Scott Card</div>
                                 </div>
                             </li>*/}
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
-
 export  default  Bookshelf;
