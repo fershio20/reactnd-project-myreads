@@ -11,14 +11,17 @@ const  categories = [
 
 class BookShelfChanger extends Component{
     state={
-        category:[]
+        category:'',
     }
+
     render(){
         return(
             <div className="book-shelf-changer">
-                <select>
+                <select defaultValue={this.props.shelf} >
                     <option value="move" disabled>Move to...</option>
-                    {categories.map((item, index)=> <option key={index} value={item.value} defaultValue={item.selected ? item.selected : ''}> {item.label} </option>)}
+                    {categories.map((item, index)=> (
+                        <option key={index} value={item.value} > {item.label} </option>)
+                    )}
                 </select>
             </div>
         );

@@ -13,6 +13,7 @@ class BooksApp extends React.Component {
          */
         showSearchPage: false,
         books: [],
+        shelf:['currentlyReading', 'read', 'wantToRead'],
         categories:[],
     }
     componentDidMount() {
@@ -26,18 +27,20 @@ class BooksApp extends React.Component {
         })
     }
     getCategories = () =>{
+        const books = this.state.books;
+        // TODO: Filter existent categories
 
-        const cat = this.state.books;
-        cat.forEach(item=>{
-            if(item.categories){
-                this.setState(prevState=>{
-                   return(
-                       {
-                           categories: [...prevState.categories, item.categories[0]],
-                       }
-                   )
-                })
-                // console.log(item.categories)
+        books.forEach(book=>{
+            if(book.categories){
+                const category = book.categories[0].toUpperCase();
+                if(!this.state.categories.includes(category)){
+                    this.setState(prevState=> ({
+                            categories: [...prevState.categories, category]
+                        })
+                    )
+                }else{
+                    console.log('>>> No esta ' + book.categories)
+                }
             }
         })
     }
@@ -75,7 +78,7 @@ class BooksApp extends React.Component {
                         </div>
                         <div className="list-books-content">
                             <div>
-                                <Bookshelf categories={this.state.categories} books={this.state.books}/>
+                                <Bookshelf shelf={this.state.shelf} books={this.state.books}/>
                                 {/*<div className="bookshelf">
                                     <h2 className="bookshelf-title">Want to Read</h2>
                                     <div className="bookshelf-books">
