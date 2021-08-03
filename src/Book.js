@@ -2,24 +2,18 @@ import React, {Component} from "react";
 
 
 const  categories = [
-    {
-        value: 'currentlyReading',
-        label: 'Currently Reading'
-    },
+    {value: 'currentlyReading', label: 'Currently Reading'},
     {value:'wantToRead', label: 'Want to Read'},
     {value:'read', label: 'Read', selected: ''},
-    {value:'none', label: 'None'}];
+    {value:'none', label: 'None'}
+];
 
 class Book extends Component{
-    state={
-        name: 'To kill a Mockingbird!',
-        author: 'Harper Lee-san',
-        cover: 'http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api'
-    }
 
     handleChange= (event)=>{
-        const value = event.target.value;
-        console.log(value);
+        const shelf = event.target.value;
+
+        this.props.onUpdateShelf(this.props.data, shelf)
     }
     render(){
         const {data} = this.props

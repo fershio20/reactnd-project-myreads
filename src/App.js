@@ -26,6 +26,18 @@ class BooksApp extends React.Component {
                 this.getCategories();
         })
     }
+    updateShelf = (newBook, shelf) =>
+        BooksAPI.update(newBook, shelf).then(response => {
+                newBook['shelf'] = shelf;
+
+                this.setState(prevState=>({
+                    books: prevState.books.filter(book => book.id !== newBook.id ).concat(newBook)
+                }))
+            }
+
+        )
+
+    // TODO: This function is Depracated
     getCategories = () =>{
         const books = this.state.books;
         // TODO: Filter existent categories
@@ -38,12 +50,11 @@ class BooksApp extends React.Component {
                             categories: [...prevState.categories, category]
                         })
                     )
-                }else{
-                    console.log('>>> No esta ' + book.categories)
                 }
             }
         })
     }
+
     render() {
 
         return (
@@ -78,7 +89,7 @@ class BooksApp extends React.Component {
                         </div>
                         <div className="list-books-content">
                             <div>
-                                <Bookshelf shelf={this.state.shelf} books={this.state.books}/>
+                                <Bookshelf shelf={this.state.shelf} onUpdateShelf={this.updateShelf} books={this.state.books}/>
                                 {/*<div className="bookshelf">
                                     <h2 className="bookshelf-title">Want to Read</h2>
                                     <div className="bookshelf-books">
