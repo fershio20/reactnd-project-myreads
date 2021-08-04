@@ -2,6 +2,7 @@ import React from 'react';
 import * as BooksAPI from './BooksAPI'
 import './App.css';
 import Bookshelf from "./Bookshelf";
+import Book from "./Book";
 
 class BooksApp extends React.Component {
     state = {
@@ -15,7 +16,9 @@ class BooksApp extends React.Component {
         books: [],
         shelf:['currentlyReading', 'read', 'wantToRead'],
         categories:[],
+        search:'',
     }
+
     componentDidMount() {
         BooksAPI.getAll()
             .then(books=>{
@@ -26,6 +29,7 @@ class BooksApp extends React.Component {
                 this.getCategories();
         })
     }
+
     updateShelf = (newBook, shelf) =>
         BooksAPI.update(newBook, shelf).then(response => {
                 newBook['shelf'] = shelf;
@@ -34,9 +38,17 @@ class BooksApp extends React.Component {
                     books: prevState.books.filter(book => book.id !== newBook.id ).concat(newBook)
                 }))
             }
-
         )
+    handleSearch = event =>{
+        const query = event.target.value;
+        BooksAPI.search(query).then(response=>{
+            console.log(response);
+            this.setState(prevState => ({
+                books: response,
+            }))
+        })
 
+    }
     // TODO: This function is Depracated
     getCategories = () =>{
         const books = this.state.books;
@@ -74,12 +86,20 @@ class BooksApp extends React.Component {
                                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                                   you don't find a specific author or title. Every search is limited by search terms.
                                 */}
-                                <input type="text" placeholder="Search by title or author"/>
+                                <input type="text" placeholder="Search by title or author" onChange={this.handleSearch} defaultValue={this.state.query}/>
 
                             </div>
                         </div>
                         <div className="search-books-results">
-                            <ol className="books-grid"></ol>
+                            <ol className="books-grid">
+                                {this.state.books.map((book, index) => {
+                                    return(
+                                        <li key={book.id}>
+                                            <Book data={book} id={index} onUpdateShelf={this.updateShelf}/>
+                                        </li>
+                                    )
+                                })}
+                            </ol>
                         </div>
                     </div>
                 ) : (

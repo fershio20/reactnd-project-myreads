@@ -38,7 +38,7 @@ class Book extends Component{
 
                     </div>
                     <div className="book-title">{data.title} - <strong>{data.shelf}</strong></div>
-                    <div className="book-authors">{data.authors[0]}</div>
+                    <div className="book-authors">{data.authors ? data.authors[0] :""}</div>
                 </div>
 
         );
