@@ -16,15 +16,15 @@ class Book extends Component{
         this.props.onUpdateShelf(this.props.data, shelf)
     }
     render(){
-        const {data} = this.props
-        return(
+        const {data} = this.props;
 
+        return(
+            <li>
                 <div className="book">
                     <div className="book-top">
                         <div className="book-cover" style={{
-                            width: 128,
-                            height: 193,
-                            backgroundImage: `url(${data.imageLinks.smallThumbnail })`
+                            width: 128, height: 193,
+                            backgroundImage: `url(${data.imageLinks ? data.imageLinks.smallThumbnail : ''})`
                         }}>
                         </div>
                         <div className="book-shelf-changer">
@@ -40,7 +40,7 @@ class Book extends Component{
                     <div className="book-title">{data.title} - <strong>{data.shelf}</strong></div>
                     <div className="book-authors">{data.authors ? data.authors[0] :""}</div>
                 </div>
-
+            </li>
         );
     }
 }

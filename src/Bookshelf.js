@@ -3,23 +3,38 @@ import Book from './Book';
 
 
 class Bookshelf extends Component{
+    state={
+        shelfCategories:[
+            {
+                type: 'currentlyReading',
+                label: 'Currently Reading'
+            },
+            {
+                type: 'read',
+                label: 'Read'
+            },
+            {
+                type: 'wantToRead',
+                label: 'Want to Read'
+            }
+        ]
+    }
     render(){
-        const {shelf, books, onUpdateShelf} = this.props
+        const {books, onUpdateShelf} = this.props
+        const data = this.state.shelfCategories;
         return (
             <div>
-                {shelf.map((shelf, index)=>{
+                {data.map((shelf, index)=>{
                     return(
                         <div className="bookshelf" key={index}>
-                            <h2 className="bookshelf-title">{shelf}</h2>
+                            <h2 className="bookshelf-title">{shelf.label}</h2>
                             <div className="bookshelf-books">
                                 <ol className="books-grid">
                                     {books.map((book, index)=>{
-                                        if(book.shelf && (book.shelf === shelf)){
-                                            return(
-                                                <li key={book.id}>
-                                                    <Book data={book} id={index} onUpdateShelf={onUpdateShelf}/>
-                                                </li>
-                                            )
+                                        if(book.shelf && (book.shelf === shelf.type)){
+                                            return(<Book key={book.id} data={book} id={index} onUpdateShelf={onUpdateShelf}/>)
+                                        }else{
+                                            return('');
                                         }
                                     })}
                                 </ol>
