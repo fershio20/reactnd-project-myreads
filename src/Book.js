@@ -12,9 +12,9 @@ class Book extends Component{
 
     handleChange= (event)=>{
         const shelf = event.target.value;
-
         this.props.onUpdateShelf(this.props.data, shelf)
     }
+
     render(){
         const {data} = this.props;
 
@@ -35,9 +35,10 @@ class Book extends Component{
                                 )}
                             </select>
                         </div>
-
                     </div>
-                    <div className="book-title">{data.title} - <strong>{data.shelf}</strong></div>
+                    <div className="book-title" title={data.title}>
+                        {data.title.length  > 25 ? data.title.substring(0, 25) + '...' : data.title}
+                    </div>
                     <div className="book-authors">{data.authors ? data.authors[0] :""}</div>
                 </div>
             </li>
