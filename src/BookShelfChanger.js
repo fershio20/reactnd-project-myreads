@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 
 const  categories = [
-    {
-        value: 'currentlyReading',
-        label: 'Currently Reading'
-    },
+    {value: 'currentlyReading', label: 'Currently Reading'},
     {value:'wantToRead', label: 'Want to Read'},
     {value:'read', label: 'Read', selected: ''},
     {value:'none', label: 'None'}]

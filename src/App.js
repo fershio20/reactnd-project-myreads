@@ -26,6 +26,7 @@ class BooksApp extends React.Component {
                 this.setState(prevState=>({
                     books: prevState.books.filter(book => book.id !== newBook.id ).concat(newBook)
                 }))
+                alert(`${newBook.title} has been added to ${shelf} shelf`)
             }
         )
     }

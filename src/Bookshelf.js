@@ -5,18 +5,9 @@ import Book from './Book';
 class Bookshelf extends Component{
     state={
         shelfCategories:[
-            {
-                type: 'currentlyReading',
-                label: 'Currently Reading'
-            },
-            {
-                type: 'read',
-                label: 'Read'
-            },
-            {
-                type: 'wantToRead',
-                label: 'Want to Read'
-            }
+            {type: 'currentlyReading', label: 'Currently Reading'},
+            {type: 'read', label: 'Read'},
+            {type: 'wantToRead', label: 'Want to Read'}
         ]
     }
     render(){
